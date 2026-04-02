@@ -1,30 +1,33 @@
 import { useState, useEffect, useRef } from "react";
 import Icon from "@/components/ui/icon";
 
-const HERO_IMAGE = "https://cdn.poehali.dev/projects/390503b6-790b-41a7-931c-e08b69d937fc/files/ff62651b-514e-4491-abec-2d8d18580b86.jpg";
-const INTERIOR_IMAGE = "https://cdn.poehali.dev/projects/390503b6-790b-41a7-931c-e08b69d937fc/files/e101fbce-007a-43df-abe6-eded46fdaf5f.jpg";
-const AERIAL_IMAGE = "https://cdn.poehali.dev/projects/390503b6-790b-41a7-931c-e08b69d937fc/files/55c3775b-6e92-4c76-87c5-cbf307f05d5b.jpg";
+// Реальные фото ЖК «Дом природы»
+const IMG_FACADE = "https://cdn.poehali.dev/projects/390503b6-790b-41a7-931c-e08b69d937fc/bucket/98d3ee31-6971-46b7-bc4e-3526535dfeb9.jpg";
+const IMG_FOREST_VIEW = "https://cdn.poehali.dev/projects/390503b6-790b-41a7-931c-e08b69d937fc/bucket/3cfed7c1-9510-428c-b616-f6175a750a15.jpg";
+const IMG_COURTYARD = "https://cdn.poehali.dev/projects/390503b6-790b-41a7-931c-e08b69d937fc/bucket/ddea32c8-20c2-49f6-a100-2f371a7f3ed5.jpg";
+const IMG_TECH = "https://cdn.poehali.dev/projects/390503b6-790b-41a7-931c-e08b69d937fc/bucket/95dd9670-a8e1-4297-a764-7f1e21b6cac0.jpg";
+const IMG_FEATURES = "https://cdn.poehali.dev/projects/390503b6-790b-41a7-931c-e08b69d937fc/bucket/44c20ccd-f995-4c9e-9c91-1c0abe1efcac.jpg";
 
 const plans = [
-  { type: "Студия", area: "28–34 м²", price: "6,2 млн", monthly: "от 42 900 ₽/мес", tag: null, img: INTERIOR_IMAGE },
-  { type: "1-комнатная", area: "38–48 м²", price: "7,8 млн", monthly: "от 54 100 ₽/мес", tag: "Хит", img: HERO_IMAGE },
-  { type: "2-комнатная", area: "56–72 м²", price: "10,4 млн", monthly: "от 72 300 ₽/мес", tag: null, img: AERIAL_IMAGE },
-  { type: "3-комнатная", area: "82–96 м²", price: "14,2 млн", monthly: "от 99 500 ₽/мес", tag: "Последние", img: HERO_IMAGE },
+  { type: "Студия", area: "28–34 м²", price: "от 6,2 млн", monthly: "от 42 900 ₽/мес", tag: null },
+  { type: "1-комнатная", area: "38–48 м²", price: "от 7,8 млн", monthly: "от 54 100 ₽/мес", tag: "Хит" },
+  { type: "2-комнатная", area: "56–72 м²", price: "от 10,4 млн", monthly: "от 72 300 ₽/мес", tag: null },
+  { type: "3-комнатная", area: "82–96 м²", price: "от 14,2 млн", monthly: "от 99 500 ₽/мес", tag: "Последние" },
 ];
 
 const advantages = [
-  { icon: "Trees", title: "100 м до леса", desc: "Единственный ЖК в черте города с прямым выходом в лесопарк" },
-  { icon: "Wind", title: "Чистый воздух", desc: "Минус PM2.5 в 3 раза ниже городской нормы — подтверждено замерами" },
-  { icon: "Shield", title: "Закрытый двор", desc: "КПП, видеонаблюдение 24/7 — никаких чужих во дворе" },
-  { icon: "Sun", title: "Сдача декабрь 2025", desc: "Готовность 85% — въедете через 6 месяцев, не через 3 года" },
-  { icon: "Building2", title: "Панорамное остекление", desc: "Окна от пола до потолка — лес в каждой комнате как живая картина" },
-  { icon: "BadgePercent", title: "Ипотека 0,1%", desc: "Платёж как аренда — от 42 900 ₽/мес при взносе всего 15%" },
+  { icon: "Trees", title: "Дубовая роща во дворе", desc: "Мы бережно сохранили дубовую рощу — дети растут в тени вековых деревьев, а не асфальта" },
+  { icon: "Eye", title: "Вид на лес с каждого этажа", desc: "360 га Ижевского леса прямо за окном — единственный ЖК в городе с таким видом" },
+  { icon: "Volume2", title: "Шумоизоляция монолит", desc: "Пол на монолите, демпферная лента, шумоизоляционный материал — тишина гарантирована" },
+  { icon: "Gauge", title: "Умные счётчики", desc: "Дистанционный контроль расхода воды и электричества — через приложение, без передачи показаний" },
+  { icon: "ArrowUpCircle", title: "Лифты 1,75 м/с", desc: "Два высокоскоростных лифта: грузовой и пассажирский — ни минуты ожидания" },
+  { icon: "Shield", title: "Бесключевой доступ", desc: "Аудио- и видеодомофон, доступ к камерам видеонаблюдения, комплексная система безопасности" },
 ];
 
 const reviews = [
-  { name: "Анна С.", date: "Март 2024", text: "Просыпаемся под пение птиц. Это другой уровень жизни в городе — не ожидала такого от Ижевска.", stars: 5 },
-  { name: "Дмитрий И.", date: "Январь 2024", text: "Вид на лес с 15 этажа бесценен. Всё как на рендерах, даже лучше. Ни о чём не жалею.", stars: 5 },
-  { name: "Елена Т.", date: "Февраль 2024", text: "Объездили все новостройки Ижевска — выбрали здесь. Менеджеры помогли с ипотекой за один день.", stars: 5 },
+  { name: "Анна С.", date: "Март 2024", text: "Просыпаемся под пение птиц. Дубы во дворе — это что-то невероятное для городского жилья. Не ожидала такого от Ижевска.", stars: 5 },
+  { name: "Дмитрий И.", date: "Январь 2024", text: "Вид на лес с 15 этажа бесценен. Купили двушку — всё как на рендерах, даже лучше. Шумоизоляция отличная.", stars: 5 },
+  { name: "Елена Т.", date: "Февраль 2024", text: "Объездили все новостройки Ижевска — выбрали здесь. Умные счётчики удобны, менеджеры помогли с ипотекой за день.", stars: 5 },
 ];
 
 export default function Index() {
@@ -71,32 +74,33 @@ export default function Index() {
           <span className="font-heading text-white text-lg tracking-tight">Дом природы</span>
         </div>
         <div className="hidden md:flex items-center gap-6 text-sm text-white/60">
-          {["#advantages","#plans","#location","#form"].map((href, i) => (
+          {["#advantages","#plans","#gallery","#form"].map((href, i) => (
             <a key={href} href={href} className="hover:text-white transition-colors">
-              {["Преимущества","Планировки","Локация","Контакты"][i]}
+              {["Преимущества","Планировки","Галерея","Контакты"][i]}
             </a>
           ))}
         </div>
-        <a href="tel:+73412000000"
+        <a href="tel:+73412970505"
           className="flex items-center gap-2 bg-[#4a9c52] hover:bg-[#3d8644] text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors">
           <Icon name="Phone" size={13} />
-          Позвонить
+          +7 3412 970 505
         </a>
       </nav>
 
       {/* ── HERO ── */}
       <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src={HERO_IMAGE} alt="" className="w-full h-full object-cover scale-105" />
+          <img src={IMG_FOREST_VIEW} alt="ЖК Дом природы — вид на лес" className="w-full h-full object-cover" />
           <div className="absolute inset-0" style={{
-            background: "linear-gradient(135deg, rgba(14,26,15,0.95) 0%, rgba(14,26,15,0.75) 55%, rgba(14,26,15,0.35) 100%)"
+            background: "linear-gradient(135deg, rgba(14,26,15,0.96) 0%, rgba(14,26,15,0.80) 50%, rgba(14,26,15,0.45) 100%)"
           }} />
         </div>
 
         <div className="relative z-10 container mx-auto px-6 pt-28 pb-16">
+          {/* Urgency */}
           <div className="inline-flex items-center gap-3 bg-red-950/60 border border-red-500/30 rounded-full px-4 py-2 mb-8 backdrop-blur-sm">
             <span className="w-2 h-2 bg-red-400 rounded-full animate-pulse flex-shrink-0" />
-            <span className="text-red-200 text-sm">Скидка 150 000 ₽ — осталось</span>
+            <span className="text-red-200 text-sm">Акция — скидка до 150 000 ₽. Осталось</span>
             <span className="text-white font-mono font-bold text-sm tracking-wider">
               {pad(timeLeft.h)}:{pad(timeLeft.m)}:{pad(timeLeft.s)}
             </span>
@@ -109,16 +113,17 @@ export default function Index() {
               от 6,2 млн ₽
             </h1>
 
+            {/* 4U офферы */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-8">
               {[
-                { icon: "Target",      u: "Конкретно",  text: "28–96 м² в Ижевске. Сдача декабрь 2025" },
-                { icon: "Zap",         u: "Срочно",     text: "Скидка 150 000 ₽ только до конца недели" },
-                { icon: "Star",        u: "Уникально",  text: "Единственный ЖК в 100 м от городского леса" },
-                { icon: "TrendingUp",  u: "Выгодно",    text: "Ипотека 0,1% — платёж от 42 900 ₽/мес" },
+                { icon: "Target",     u: "Конкретно",  text: "17 этажей, 148 квартир, 13 планировок. Сдача 2025" },
+                { icon: "Zap",        u: "Срочно",     text: "Скидка до 150 000 ₽ — только до конца недели" },
+                { icon: "Star",       u: "Уникально",  text: "Единственный ЖК с дубовой рощей во дворе в Ижевске" },
+                { icon: "TrendingUp", u: "Выгодно",    text: "Ипотека 0,1% — платёж как аренда, от 42 900 ₽/мес" },
               ].map((u) => (
-                <div key={u.u} className="flex items-start gap-2.5 bg-white/5 border border-white/8 rounded-xl px-4 py-3">
+                <div key={u.u} className="flex items-start gap-2.5 bg-white/5 border border-white/10 rounded-xl px-4 py-3">
                   <Icon name={u.icon} size={14} className="text-[#6abf74] mt-0.5 flex-shrink-0" />
-                  <p className="text-white/75 text-sm leading-snug">
+                  <p className="text-white/80 text-sm leading-snug">
                     <span className="text-[#6abf74] font-semibold">{u.u}:</span> {u.text}
                   </p>
                 </div>
@@ -130,20 +135,21 @@ export default function Index() {
                 className="bg-[#4a9c52] hover:bg-[#3d8644] text-white font-semibold px-8 py-4 rounded-full text-center transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#4a9c52]/40">
                 Получить каталог с ценами →
               </a>
-              <a href="tel:+73412000000"
+              <a href="tel:+73412970505"
                 className="border border-white/25 text-white hover:bg-white/8 font-semibold px-8 py-4 rounded-full text-center transition-all flex items-center justify-center gap-2">
                 <Icon name="Phone" size={16} />
-                +7 (3412) 00-00-00
+                +7 3412 970 505
               </a>
             </div>
           </div>
 
+          {/* Реальная статистика */}
           <div className="flex flex-wrap gap-8 mt-12 pt-8 border-t border-white/10">
             {[
-              { n: "127", l: "квартир продано" },
-              { n: "4,9★", l: "рейтинг застройщика" },
-              { n: "100 м", l: "до городского леса" },
-              { n: "15", l: "банков-партнёров" },
+              { n: "17", l: "этажей" },
+              { n: "148", l: "квартир" },
+              { n: "13", l: "уникальных планировок" },
+              { n: "35", l: "индивидуальных кладовых" },
             ].map((s) => (
               <div key={s.l}>
                 <p className="font-heading text-2xl text-white">{s.n}</p>
@@ -165,28 +171,48 @@ export default function Index() {
             <div>
               <p className="text-[#6abf74] text-sm font-semibold tracking-widest uppercase mb-2">Почему здесь</p>
               <h2 className="font-heading text-4xl md:text-5xl font-light leading-tight">
-                6 причин выбрать<br />
-                <em className="italic text-[#6abf74]">Дом природы</em>
+                На границе города<br />
+                <em className="italic text-[#6abf74]">и леса</em>
               </h2>
             </div>
             <a href="#form" className="text-[#6abf74] text-sm hover:text-white transition-colors flex items-center gap-1 flex-shrink-0">
-              Получить консультацию <Icon name="ArrowRight" size={14} />
+              Получить презентацию <Icon name="ArrowRight" size={14} />
             </a>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {advantages.map((adv, i) => (
-              <div
-                key={adv.title}
-                className="aos group p-6 rounded-2xl border border-[#4a9c52]/15 hover:border-[#4a9c52]/50 bg-[#0e1a0f] hover:bg-[#141f15] transition-all duration-300 hover:-translate-y-0.5"
-                style={{ opacity: 0, transitionDelay: `${i * 0.08}s` }}
-              >
-                <div className="w-9 h-9 rounded-xl bg-[#4a9c52]/15 group-hover:bg-[#4a9c52]/30 flex items-center justify-center mb-4 transition-colors">
-                  <Icon name={adv.icon} size={18} className="text-[#6abf74]" />
-                </div>
-                <h3 className="font-heading text-lg text-white mb-1.5">{adv.title}</h3>
-                <p className="text-white/45 text-sm leading-relaxed">{adv.desc}</p>
+
+          {/* Большое фото + текст */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <div className="aos rounded-2xl overflow-hidden h-72 lg:h-auto relative" style={{ opacity: 0 }}>
+              <img src={IMG_FACADE} alt="Фасад ЖК Дом природы" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#111c12]/60 to-transparent" />
+              <div className="absolute bottom-5 left-5">
+                <p className="font-heading text-xl">Дом первый</p>
+                <p className="text-white/55 text-sm">На границе города и леса</p>
               </div>
-            ))}
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {advantages.map((adv, i) => (
+                <div
+                  key={adv.title}
+                  className="aos group p-5 rounded-2xl border border-[#4a9c52]/15 hover:border-[#4a9c52]/50 bg-[#0e1a0f] hover:bg-[#141f15] transition-all duration-300"
+                  style={{ opacity: 0, transitionDelay: `${i * 0.07}s` }}
+                >
+                  <div className="w-8 h-8 rounded-lg bg-[#4a9c52]/15 group-hover:bg-[#4a9c52]/30 flex items-center justify-center mb-3 transition-colors">
+                    <Icon name={adv.icon} size={16} className="text-[#6abf74]" />
+                  </div>
+                  <h3 className="font-heading text-base text-white mb-1 leading-snug">{adv.title}</h3>
+                  <p className="text-white/40 text-xs leading-relaxed">{adv.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Цитата */}
+          <div className="aos rounded-2xl bg-[#1a2e1b] border border-[#4a9c52]/20 p-7 text-center" style={{ opacity: 0 }}>
+            <p className="font-heading text-xl md:text-2xl font-light text-white/85 leading-relaxed max-w-2xl mx-auto">
+              «Время словно слегка замедляется: дыхание становится легче, зелень — ярче, а мысли — спокойнее»
+            </p>
+            <p className="text-[#6abf74] text-sm mt-3">— Концепция ЖК «Дом природы»</p>
           </div>
         </div>
       </section>
@@ -195,10 +221,11 @@ export default function Index() {
       <section id="plans" className="py-20 bg-[#0e1a0f]">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12 aos" style={{ opacity: 0 }}>
-            <p className="text-[#6abf74] text-sm font-semibold tracking-widest uppercase mb-2">Выберите своё</p>
+            <p className="text-[#6abf74] text-sm font-semibold tracking-widest uppercase mb-2">Квартиры в наличии</p>
             <h2 className="font-heading text-4xl md:text-5xl font-light">
               Планировки <em className="italic text-[#6abf74]">и цены</em>
             </h2>
+            <p className="text-white/40 text-sm mt-3">13 уникальных планировок · 35 индивидуальных кладовых</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
             {plans.map((p, i) => (
@@ -212,15 +239,17 @@ export default function Index() {
                     {p.tag}
                   </div>
                 )}
-                <div className="h-36 overflow-hidden relative">
-                  <img src={p.img} alt={p.type} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                {/* Иллюстрация планировки */}
+                <div className="h-36 overflow-hidden relative bg-[#1a2e1b] flex items-center justify-center">
+                  <img src={i % 2 === 0 ? IMG_FACADE : IMG_COURTYARD} alt={p.type}
+                    className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700" />
                   <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#111c12] to-transparent" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="font-heading text-3xl text-white/80">{p.area}</span>
+                  </div>
                 </div>
                 <div className="p-5">
-                  <div className="flex items-baseline justify-between mb-0.5">
-                    <h3 className="font-heading text-xl text-white">{p.type}</h3>
-                    <span className="text-white/35 text-xs">{p.area}</span>
-                  </div>
+                  <h3 className="font-heading text-xl text-white mb-0.5">{p.type}</h3>
                   <p className="text-[#6abf74] font-semibold text-xl mb-0.5">{p.price} ₽</p>
                   <p className="text-white/35 text-xs mb-4">{p.monthly}</p>
                   <a href="#form"
@@ -234,7 +263,7 @@ export default function Index() {
           <div className="aos rounded-2xl bg-[#1a2e1b] border border-[#4a9c52]/25 p-7 flex flex-col md:flex-row items-center justify-between gap-5" style={{ opacity: 0 }}>
             <div>
               <p className="font-heading text-xl mb-1">Ипотека одобрена за <span className="text-[#6abf74]">24 часа</span></p>
-              <p className="text-white/45 text-sm">15 банков-партнёров · Взнос от 15% · Без справок о доходах</p>
+              <p className="text-white/45 text-sm">15 банков-партнёров · Взнос от 15% · Без лишних документов</p>
             </div>
             <a href="#form" className="flex-shrink-0 bg-[#4a9c52] hover:bg-[#3d8644] text-white font-semibold px-7 py-3.5 rounded-full transition-colors whitespace-nowrap">
               Рассчитать ипотеку →
@@ -244,26 +273,46 @@ export default function Index() {
       </section>
 
       {/* ── ГАЛЕРЕЯ ── */}
-      <section className="py-20 bg-[#111c12]">
+      <section id="gallery" className="py-20 bg-[#111c12]">
         <div className="container mx-auto px-6">
           <div className="mb-10 aos" style={{ opacity: 0 }}>
-            <p className="text-[#6abf74] text-sm font-semibold tracking-widest uppercase mb-2">Фото</p>
+            <p className="text-[#6abf74] text-sm font-semibold tracking-widest uppercase mb-2">Фото ЖК</p>
             <h2 className="font-heading text-4xl md:text-5xl font-light">Галерея <em className="italic text-[#6abf74]">комплекса</em></h2>
           </div>
           <div className="grid grid-cols-12 gap-3">
-            <div className="aos col-span-12 md:col-span-7 rounded-2xl overflow-hidden h-72 md:h-96 relative group" style={{ opacity: 0 }}>
-              <img src={HERO_IMAGE} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-              <p className="absolute bottom-4 left-5 font-heading text-lg">Фасад комплекса</p>
+            <div className="aos col-span-12 md:col-span-7 rounded-2xl overflow-hidden h-80 md:h-[440px] relative group" style={{ opacity: 0 }}>
+              <img src={IMG_FOREST_VIEW} alt="Вид на лес с ЖК" className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute bottom-5 left-5">
+                <p className="font-heading text-xl">Вид на лес с высоты</p>
+                <p className="text-white/55 text-sm">360 га леса прямо за окном</p>
+              </div>
             </div>
             <div className="col-span-12 md:col-span-5 flex flex-col gap-3">
-              {[{ src: INTERIOR_IMAGE, label: "Интерьер квартиры" }, { src: AERIAL_IMAGE, label: "Вид с высоты" }].map((item, i) => (
-                <div key={item.label} className="aos rounded-2xl overflow-hidden h-44 relative group" style={{ opacity: 0, transitionDelay: `${i * 0.1}s` }}>
-                  <img src={item.src} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                  <p className="absolute bottom-3 left-4 font-heading text-base">{item.label}</p>
-                </div>
-              ))}
+              <div className="aos rounded-2xl overflow-hidden h-52 relative group" style={{ opacity: 0, transitionDelay: "0.1s" }}>
+                <img src={IMG_FACADE} alt="Фасад ЖК" className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                <p className="absolute bottom-3 left-4 font-heading text-base">Фасад комплекса</p>
+              </div>
+              <div className="aos rounded-2xl overflow-hidden h-52 relative group" style={{ opacity: 0, transitionDelay: "0.2s" }}>
+                <img src={IMG_COURTYARD} alt="Двор ЖК" className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                <p className="absolute bottom-3 left-4 font-heading text-base">Дубовая роща во дворе</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Технологии — доп. фото */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
+            <div className="aos rounded-2xl overflow-hidden h-48 relative group" style={{ opacity: 0, transitionDelay: "0.1s" }}>
+              <img src={IMG_TECH} alt="Технологии ЖК" className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <p className="absolute bottom-3 left-4 font-heading text-base">Технологии и инженерия</p>
+            </div>
+            <div className="aos rounded-2xl overflow-hidden h-48 relative group" style={{ opacity: 0, transitionDelay: "0.2s" }}>
+              <img src={IMG_FEATURES} alt="Особенности ЖК" className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <p className="absolute bottom-3 left-4 font-heading text-base">Квартиры с террасами</p>
             </div>
           </div>
         </div>
@@ -273,31 +322,36 @@ export default function Index() {
       <section id="location" className="py-20 bg-[#0e1a0f]">
         <div className="container mx-auto px-6">
           <div className="mb-10 aos" style={{ opacity: 0 }}>
-            <p className="text-[#6abf74] text-sm font-semibold tracking-widest uppercase mb-2">Где находимся</p>
-            <h2 className="font-heading text-4xl md:text-5xl font-light">Удобная <em className="italic text-[#6abf74]">локация</em></h2>
+            <p className="text-[#6abf74] text-sm font-semibold tracking-widest uppercase mb-2">Инфраструктура</p>
+            <h2 className="font-heading text-4xl md:text-5xl font-light">Поедем <em className="italic text-[#6abf74]">на природу</em></h2>
+            <p className="text-white/40 text-sm mt-2">Ваш комфорт не ограничен стенами — он живёт в гармонии с городом</p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             <div className="aos" style={{ opacity: 0 }}>
-              <div className="grid grid-cols-3 gap-3 mb-6">
+              <div className="grid grid-cols-2 gap-3 mb-6">
                 {[
-                  { icon: "GraduationCap", n: "3", l: "школы" },
-                  { icon: "Baby", n: "4", l: "д/сада" },
+                  { icon: "GraduationCap", n: "2", l: "школы рядом" },
+                  { icon: "Baby", n: "2", l: "детских сада" },
                   { icon: "ShoppingCart", n: "8 мин", l: "до магазинов" },
-                  { icon: "TreePine", n: "100 м", l: "до парка" },
+                  { icon: "TreePine", n: "100 м", l: "до леса" },
                   { icon: "Car", n: "20 мин", l: "до центра" },
-                  { icon: "Dumbbell", n: "500 м", l: "фитнес" },
+                  { icon: "Dumbbell", n: "Спорт", l: "зал в районе" },
                 ].map((item) => (
-                  <div key={item.l} className="bg-[#111c12] border border-[#4a9c52]/15 rounded-xl p-4 text-center">
-                    <Icon name={item.icon} size={18} className="text-[#6abf74] mx-auto mb-2" />
-                    <p className="font-heading text-lg text-white">{item.n}</p>
-                    <p className="text-white/35 text-xs">{item.l}</p>
+                  <div key={item.l} className="bg-[#111c12] border border-[#4a9c52]/15 rounded-xl p-4 flex items-center gap-3">
+                    <div className="w-9 h-9 bg-[#4a9c52]/15 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Icon name={item.icon} size={17} className="text-[#6abf74]" />
+                    </div>
+                    <div>
+                      <p className="font-heading text-lg text-white leading-none">{item.n}</p>
+                      <p className="text-white/35 text-xs">{item.l}</p>
+                    </div>
                   </div>
                 ))}
               </div>
               <div className="bg-[#111c12] border border-[#4a9c52]/20 rounded-xl p-5">
-                <p className="text-[#6abf74] text-xs font-semibold uppercase tracking-wide mb-1">Адрес офиса продаж</p>
-                <p className="font-heading text-lg mb-1">Ижевск, ул. Лесная, 14</p>
-                <p className="text-white/40 text-sm">Ежедневно с 9:00 до 21:00</p>
+                <p className="text-[#6abf74] text-xs font-semibold uppercase tracking-wide mb-1">Офис продаж</p>
+                <p className="font-heading text-lg mb-0.5">Ижевск, Дом природы</p>
+                <p className="text-white/40 text-sm">Ежедневно 9:00–21:00 · +7 3412 970 505</p>
               </div>
             </div>
             <div className="aos rounded-2xl overflow-hidden h-80 border border-[#4a9c52]/20" style={{ opacity: 0 }}>
@@ -315,12 +369,12 @@ export default function Index() {
       <section className="py-20 bg-[#111c12]">
         <div className="container mx-auto px-6">
           <div className="mb-10 aos" style={{ opacity: 0 }}>
-            <p className="text-[#6abf74] text-sm font-semibold tracking-widest uppercase mb-2">Люди говорят</p>
-            <h2 className="font-heading text-4xl md:text-5xl font-light">Отзывы <em className="italic text-[#6abf74]">жителей</em></h2>
+            <p className="text-[#6abf74] text-sm font-semibold tracking-widest uppercase mb-2">Жители говорят</p>
+            <h2 className="font-heading text-4xl md:text-5xl font-light">Отзывы <em className="italic text-[#6abf74]">жильцов</em></h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {reviews.map((r, i) => (
-              <div key={r.name} className="aos bg-[#0e1a0f] border border-[#4a9c52]/15 rounded-2xl p-6" style={{ opacity: 0, transitionDelay: `${i * 0.1}s` }}>
+              <div key={r.name} className="aos bg-[#0e1a0f] border border-[#4a9c52]/15 rounded-2xl p-6 hover:border-[#4a9c52]/35 transition-colors" style={{ opacity: 0, transitionDelay: `${i * 0.1}s` }}>
                 <div className="flex gap-0.5 mb-4">
                   {Array.from({ length: r.stars }).map((_, j) => (
                     <Icon key={j} name="Star" size={14} className="text-amber-400 fill-amber-400" />
@@ -345,24 +399,24 @@ export default function Index() {
       {/* ── ФОРМА ── */}
       <section id="form" className="py-20 relative overflow-hidden">
         <div className="absolute inset-0">
-          <img src={AERIAL_IMAGE} alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0" style={{ background: "rgba(14,26,15,0.94)" }} />
+          <img src={IMG_FOREST_VIEW} alt="" className="w-full h-full object-cover" />
+          <div className="absolute inset-0" style={{ background: "rgba(14,26,15,0.95)" }} />
         </div>
         <div className="relative container mx-auto px-6">
           <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="aos" style={{ opacity: 0 }}>
               <p className="text-[#6abf74] text-sm font-semibold tracking-widest uppercase mb-3">Бесплатно</p>
               <h2 className="font-heading text-4xl md:text-5xl font-light mb-5">
-                Получите каталог<br />
-                <em className="italic text-[#6abf74]">прямо сейчас</em>
+                Получите<br />
+                <em className="italic text-[#6abf74]">презентацию ЖК</em>
               </h2>
               <p className="text-white/50 text-sm mb-8 leading-relaxed">
-                Пришлём актуальные планировки, цены и условия ипотеки — без навязчивых звонков, сразу в мессенджер
+                Пришлём планировки, актуальные цены и условия ипотеки — без звонков, сразу в мессенджер
               </p>
               <div className="space-y-4">
                 {[
-                  { icon: "Phone", label: "Телефон", val: "+7 (3412) 00-00-00" },
-                  { icon: "MapPin", label: "Офис продаж", val: "ул. Лесная, 14, Ижевск" },
+                  { icon: "Phone", label: "Телефон", val: "+7 3412 970 505" },
+                  { icon: "MapPin", label: "Офис продаж", val: "Ижевск, ЖК «Дом природы»" },
                   { icon: "Clock", label: "Режим работы", val: "Ежедневно 9:00–21:00" },
                 ].map((c) => (
                   <div key={c.label} className="flex items-center gap-3">
@@ -400,7 +454,7 @@ export default function Index() {
                   onSubmit={(e) => { e.preventDefault(); setSent(true); }}
                   className="bg-[#111c12]/80 backdrop-blur-md border border-[#4a9c52]/20 rounded-3xl p-8 space-y-4"
                 >
-                  <h3 className="font-heading text-2xl mb-1">Оставить заявку</h3>
+                  <h3 className="font-heading text-2xl mb-0.5">Оставить заявку</h3>
                   <p className="text-white/40 text-sm !mt-1 !mb-4">Ответим за 15 минут</p>
                   <input type="text" placeholder="Ваше имя" value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })} required
@@ -416,7 +470,7 @@ export default function Index() {
                   </select>
                   <button type="submit"
                     className="w-full bg-[#4a9c52] hover:bg-[#3d8644] text-white font-semibold py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-[#4a9c52]/30">
-                    Получить каталог и цены →
+                    Получить презентацию →
                   </button>
                   <p className="text-white/20 text-xs text-center">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
                 </form>
@@ -433,7 +487,7 @@ export default function Index() {
             <div className="w-5 h-5 rounded-full bg-[#4a9c52] flex items-center justify-center">
               <Icon name="Trees" size={10} className="text-white" />
             </div>
-            <span className="text-white/50">ЖК «Дом Природы» · Ижевск</span>
+            <span className="text-white/50">ЖК «Дом природы» · Ижевск · Дом широких горизонтов</span>
           </div>
           <p>© 2025 ООО «СтройИнвест». Проектная декларация на сайте наш-жк.рф</p>
         </div>
