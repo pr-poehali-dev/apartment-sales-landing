@@ -186,7 +186,7 @@ export default function Index() {
 
           <div className="max-w-2xl">
             {/* Заголовок — правка 2 */}
-            <h1 className="font-heading text-5xl md:text-[68px] font-light leading-[1.05] mb-5">
+            <h1 className="font-heading text-4xl md:text-[52px] font-light leading-[1.1] mb-5">
               Квартира для семьи у леса<br />
               <em className="italic text-[#6abf74]">в Ижевске от 6,2 млн ₽</em>
             </h1>
