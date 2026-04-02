@@ -62,8 +62,17 @@ function ModalForm({ onClose, preselect }: ModalFormProps) {
           </div>
         ) : (
           <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="space-y-4">
-            <h3 className="font-heading text-2xl mb-0.5">Выбрать квартиру</h3>
-            <p className="text-white/40 text-sm !mt-1 !mb-4">Ответим за 15 минут</p>
+            <h3 className="font-heading text-2xl mb-0.5">Подберём квартиру под вас</h3>
+            <p className="text-white/55 text-sm !mt-1 !mb-1 leading-relaxed">
+              Оставьте заявку — менеджер свяжется в течение 15 минут, расскажет об актуальных планировках, ценах и условиях ипотеки. Без навязчивых звонков.
+            </p>
+            <div className="flex flex-wrap gap-3 !mb-2">
+              {["Скидка до 599 880 ₽", "Ипотека от 5%", "Взнос от 10%"].map((badge) => (
+                <span key={badge} className="text-[10px] font-semibold text-[#6abf74] bg-[#4a9c52]/10 border border-[#4a9c52]/25 px-2.5 py-1 rounded-full">
+                  {badge}
+                </span>
+              ))}
+            </div>
             <input type="text" placeholder="Ваше имя" value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })} required
               className="w-full bg-white/5 border border-white/10 focus:border-[#4a9c52]/60 outline-none rounded-xl px-4 py-3.5 text-white placeholder-white/30 text-sm transition-colors" />
@@ -178,8 +187,8 @@ export default function Index() {
           <div className="max-w-2xl">
             {/* Заголовок — правка 2 */}
             <h1 className="font-heading text-5xl md:text-[68px] font-light leading-[1.05] mb-5">
-              Квартира у леса в Ижевске<br />
-              <em className="italic text-[#6abf74]">от 6,2 млн ₽</em>
+              Квартира для семьи у леса<br />
+              <em className="italic text-[#6abf74]">в Ижевске от 6,2 млн ₽</em>
             </h1>
 
             {/* Буллиты — правка 3: без лейблов, просто текст */}
