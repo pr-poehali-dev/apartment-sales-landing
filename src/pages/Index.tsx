@@ -346,7 +346,7 @@ export default function Index() {
       <section id="location" className="py-20 bg-[#111c12]">
         <div className="container mx-auto px-6">
           <div className="mb-10 aos" style={{ opacity: 0 }}>
-            <p className="text-[#6abf74] text-sm font-semibold tracking-widest uppercase mb-2">Инфраструктура</p>
+
             <h2 className="font-heading text-4xl md:text-5xl font-light">Поедем <em className="italic text-[#6abf74]">на природу</em></h2>
             <p className="text-white/40 text-sm mt-2">Ваш комфорт не ограничен стенами — он живёт в гармонии с городом</p>
           </div>
