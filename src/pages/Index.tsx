@@ -15,15 +15,15 @@ const IMG_PLAN_2K = "https://cdn.poehali.dev/files/9d56690f-1d48-426d-b67f-17206
 const IMG_PLAN_3K = "https://cdn.poehali.dev/files/cec1de0a-73e1-4465-96fa-6145dd892946.png";
 
 const plans = [
-  { type: "1-комнатная", area: "38–48 м²", price: "от 6,2 млн", tag: "Хит", plan: IMG_PLAN_1K },
+  { type: "1-комнатная", area: "38–48 м²", price: "от 6,2 млн", tag: null, plan: IMG_PLAN_1K },
   { type: "2-комнатная", area: "56–72 м²", price: "от 7,5 млн", tag: null, plan: IMG_PLAN_2K },
-  { type: "3-комнатная", area: "82–96 м²", price: "от 9,7 млн", tag: "Последние", plan: IMG_PLAN_3K },
+  { type: "3-комнатная", area: "82–96 м²", price: "от 9,7 млн", tag: null, plan: IMG_PLAN_3K },
 ];
 
 const advantages = [
   { icon: "Trees", title: "Дубовая роща во дворе", desc: "Мы бережно сохранили дубовую рощу — дети растут в тени вековых деревьев, а не асфальта" },
-  { icon: "Eye", title: "Вид на лес с каждого этажа", desc: "360 га Ижевского леса прямо за окном — единственный ЖК в городе с таким видом" },
-  { icon: "Volume2", title: "Шумоизоляция монолит", desc: "В квартирах исключено прямое примыкание стяжки пола к монолиту. На полу выложен шумоизоляционный материал. В стыках пола и стены — демпферная лента." },
+  { icon: "Thermometer", title: "Отопление", desc: "Индивидуальный тепловой пункт. Возможность регулировки температуры воды и отопления. Периметральная разводка труб. Подключение радиаторов — нижнее из стены." },
+  { icon: "Volume2", title: "Шумоизоляция", desc: "В квартирах исключено прямое примыкание стяжки пола к монолиту. На полу выложен шумоизоляционный материал. В стыках пола и стены — демпферная лента." },
   { icon: "Gauge", title: "Умные счётчики", desc: "Дистанционный контроль расхода воды и электричества — через приложение, без передачи показаний" },
   { icon: "ArrowUpCircle", title: "Лифты 1,75 м/с", desc: "Два высокоскоростных лифта: грузовой и пассажирский — ни минуты ожидания" },
   { icon: "Shield", title: "Бесключевой доступ", desc: "Аудио- и видеодомофон, доступ к камерам видеонаблюдения, комплексная система безопасности" },
@@ -190,7 +190,7 @@ export default function Index() {
             {/* Буллиты — правка 3: без лейблов, просто текст */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-8">
               {[
-                { icon: "BadgePercent", text: "Рассрочка 0% с первоначальным взносом 10% на год" },
+                { icon: "BadgePercent", text: "Рассрочка 0% на год. С первоначальным взносом 10%" },
                 { icon: "Building2",   text: "Семейная и IT ипотека по ставке 6%" },
                 { icon: "Trees",       text: "Единственный ЖК с дубовой рощей во дворе" },
                 { icon: "MapPin",      text: "Лучшие туристические места Ижевска в шаговой доступности" },
@@ -375,12 +375,17 @@ export default function Index() {
                 <p className="text-white/40 text-sm">Ежедневно 9:00–21:00 · +7 3412 970 505</p>
               </div>
             </div>
-            <div className="aos rounded-2xl overflow-hidden h-80 border border-[#4a9c52]/20" style={{ opacity: 0 }}>
+            <div className="aos rounded-2xl overflow-hidden border border-[#4a9c52]/20 relative" style={{ opacity: 0, height: "320px" }}>
               <iframe
-                src="https://yandex.ru/map-widget/v1/?ll=53.1823%2C56.8717&z=15&l=map&pt=53.1823,56.8717,pm2gnm"
+                src="https://yandex.ru/map-widget/v1/?ll=53.1782%2C56.8742&z=15&l=map&pt=53.1782,56.8742,pm2bll"
                 width="100%" height="100%" frameBorder="0" title="Карта"
                 className="w-full h-full grayscale opacity-80"
               />
+              <div className="absolute inset-0 pointer-events-none flex items-center justify-center" style={{ paddingBottom: "60px" }}>
+                <div className="bg-[#3a4a2a] rounded-2xl px-4 py-2 shadow-2xl border border-[#6abf74]/30 flex items-center gap-2">
+                  <img src="https://cdn.poehali.dev/projects/390503b6-790b-41a7-931c-e08b69d937fc/bucket/ccef56f0-9aa0-4b0b-b4fc-fa665eff3207.png" alt="Дом природы" className="h-7 w-auto" style={{ filter: "brightness(0) invert(1)" }} />
+                </div>
+              </div>
             </div>
           </div>
         </div>
