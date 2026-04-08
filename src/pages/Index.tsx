@@ -375,17 +375,12 @@ export default function Index() {
                 <p className="text-white/40 text-sm">Ежедневно 9:00–21:00 · +7 3412 970 505</p>
               </div>
             </div>
-            <div className="aos rounded-2xl overflow-hidden border border-[#4a9c52]/20 relative" style={{ opacity: 0, height: "320px" }}>
+            <div className="aos rounded-2xl overflow-hidden border border-[#4a9c52]/20" style={{ opacity: 0, height: "320px" }}>
               <iframe
-                src="https://yandex.ru/map-widget/v1/?ll=53.1638%2C56.8755&z=15&l=map&pt=53.1638,56.8755,pm2bll"
+                src="https://yandex.ru/map-widget/v1/?ll=53.1823%2C56.8717&z=15&l=map&pt=53.1823,56.8717,pm2rdl"
                 width="100%" height="100%" frameBorder="0" title="Карта"
                 className="w-full h-full grayscale opacity-80"
               />
-              <div className="absolute inset-0 pointer-events-none flex items-center justify-center" style={{ paddingBottom: "60px" }}>
-                <div className="bg-[#3a4a2a] rounded-2xl px-4 py-2 shadow-2xl border border-[#6abf74]/30 flex items-center gap-2">
-                  <img src="https://cdn.poehali.dev/projects/390503b6-790b-41a7-931c-e08b69d937fc/bucket/ccef56f0-9aa0-4b0b-b4fc-fa665eff3207.png" alt="Дом природы" className="h-7 w-auto" style={{ filter: "brightness(0) invert(1)" }} />
-                </div>
-              </div>
             </div>
           </div>
         </div>
