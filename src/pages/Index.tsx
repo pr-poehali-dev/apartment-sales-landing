@@ -12,11 +12,12 @@ const IMG_COURTYARD = "https://cdn.poehali.dev/projects/390503b6-790b-41a7-931c-
 // 3-комн: остаток 6,79 млн → ~53 700 ₽/мес
 const IMG_PLAN_1K = "https://cdn.poehali.dev/projects/390503b6-790b-41a7-931c-e08b69d937fc/bucket/764b38ff-052b-4346-989a-41653218f529.png";
 const IMG_PLAN_2K = "https://cdn.poehali.dev/files/9d56690f-1d48-426d-b67f-1720623eb635.png";
+const IMG_PLAN_3K = "https://cdn.poehali.dev/files/cec1de0a-73e1-4465-96fa-6145dd892946.png";
 
 const plans = [
   { type: "1-комнатная", area: "38–48 м²", price: "от 6,2 млн", tag: "Хит", plan: IMG_PLAN_1K },
   { type: "2-комнатная", area: "56–72 м²", price: "от 7,5 млн", tag: null, plan: IMG_PLAN_2K },
-  { type: "3-комнатная", area: "82–96 м²", price: "от 9,7 млн", tag: "Последние", plan: null },
+  { type: "3-комнатная", area: "82–96 м²", price: "от 9,7 млн", tag: "Последние", plan: IMG_PLAN_3K },
 ];
 
 const advantages = [
