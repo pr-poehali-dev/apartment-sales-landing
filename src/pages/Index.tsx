@@ -10,10 +10,13 @@ const IMG_COURTYARD = "https://cdn.poehali.dev/projects/390503b6-790b-41a7-931c-
 // 1-комн: остаток 4,34 млн → ~34 300 ₽/мес
 // 2-комн: остаток 5,25 млн → ~41 500 ₽/мес
 // 3-комн: остаток 6,79 млн → ~53 700 ₽/мес
+const IMG_PLAN_1K = "https://cdn.poehali.dev/projects/390503b6-790b-41a7-931c-e08b69d937fc/bucket/764b38ff-052b-4346-989a-41653218f529.png";
+const IMG_PLAN_2K = "https://cdn.poehali.dev/files/9d56690f-1d48-426d-b67f-1720623eb635.png";
+
 const plans = [
-  { type: "1-комнатная", area: "38–48 м²", price: "от 6,2 млн", monthly: "от 34 300 ₽/мес", tag: "Хит" },
-  { type: "2-комнатная", area: "56–72 м²", price: "от 7,5 млн", monthly: "от 41 500 ₽/мес", tag: null },
-  { type: "3-комнатная", area: "82–96 м²", price: "от 9,7 млн", monthly: "от 53 700 ₽/мес", tag: "Последние" },
+  { type: "1-комнатная", area: "38–48 м²", price: "от 6,2 млн", tag: "Хит", plan: IMG_PLAN_1K },
+  { type: "2-комнатная", area: "56–72 м²", price: "от 7,5 млн", tag: null, plan: IMG_PLAN_2K },
+  { type: "3-комнатная", area: "82–96 м²", price: "от 9,7 млн", tag: "Последние", plan: null },
 ];
 
 const advantages = [
@@ -311,18 +314,24 @@ export default function Index() {
                     {p.tag}
                   </div>
                 )}
-                <div className="h-36 overflow-hidden relative bg-[#1a2e1b] flex items-center justify-center">
-                  <img src={i % 2 === 0 ? IMG_FACADE : IMG_COURTYARD} alt={p.type}
-                    className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700" />
-                  <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#111c12] to-transparent" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="font-heading text-3xl text-white/80">{p.area}</span>
-                  </div>
+                <div className={`h-44 overflow-hidden relative flex items-center justify-center ${p.plan ? "bg-white" : "bg-[#1a2e1b]"}`}>
+                  {p.plan ? (
+                    <img src={p.plan} alt={`Планировка ${p.type}`}
+                      className="w-full h-full object-contain group-hover:scale-105 transition-all duration-700" />
+                  ) : (
+                    <>
+                      <img src={i % 2 === 0 ? IMG_FACADE : IMG_COURTYARD} alt={p.type}
+                        className="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700" />
+                      <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#111c12] to-transparent" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="font-heading text-3xl text-white/80">{p.area}</span>
+                      </div>
+                    </>
+                  )}
                 </div>
                 <div className="p-5">
                   <h3 className="font-heading text-xl text-white mb-0.5">{p.type}</h3>
-                  <p className="text-[#6abf74] font-semibold text-xl mb-0.5">{p.price} ₽</p>
-                  <p className="text-white/35 text-xs mb-4">{p.monthly} · ипотека 5%, взнос 30%</p>
+                  <p className="text-[#6abf74] font-semibold text-xl mb-4">{p.price} ₽</p>
                   {/* правка 7: «Выбрать квартиру» → открывает модал */}
                   <button
                     onClick={() => openModal(p.type)}
