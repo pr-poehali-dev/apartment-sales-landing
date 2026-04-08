@@ -378,7 +378,7 @@ export default function Index() {
             </div>
             <div className="aos rounded-2xl overflow-hidden border border-[#4a9c52]/20" style={{ opacity: 0, height: "320px" }}>
               <iframe
-                src="https://yandex.ru/map-widget/v1/?ll=53.1795%2C56.8775&z=16&l=map&pt=53.1795,56.8775,pm2rdl"
+                src="https://yandex.ru/map-widget/v1/?ll=53.1758%2C56.8800&z=16&l=map&pt=53.1758,56.8800,pm2rdl"
                 width="100%" height="100%" frameBorder="0" title="Карта"
                 className="w-full h-full grayscale opacity-80"
               />
