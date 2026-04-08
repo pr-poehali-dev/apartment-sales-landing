@@ -178,15 +178,7 @@ export default function Index() {
         </div>
 
         <div className="relative z-10 container mx-auto px-6 pt-28 pb-16">
-          {/* Urgency — правка 1 */}
-          <div className="inline-flex items-center gap-3 bg-red-950/60 border border-red-500/30 rounded-full px-4 py-2 mb-8 backdrop-blur-sm">
-            <span className="w-2 h-2 bg-red-400 rounded-full animate-pulse flex-shrink-0" />
-            <span className="text-red-200 text-sm">
-              Акция — скидка до 599 880 ₽. Осталось{" "}
-              <span className="font-bold text-white bg-red-500/30 px-1.5 py-0.5 rounded-md mx-0.5">14</span>
-              {" "}квартир
-            </span>
-          </div>
+
 
           <div className="max-w-2xl">
             {/* Заголовок — правка 2 */}
@@ -344,18 +336,7 @@ export default function Index() {
             ))}
           </div>
 
-          {/* правка 8: ипотека 72 часа, 5 банков, взнос от 10% */}
-          <div className="aos rounded-2xl bg-[#1a2e1b] border border-[#4a9c52]/25 p-7 flex flex-col md:flex-row items-center justify-between gap-5" style={{ opacity: 0 }}>
-            <div>
-              <p className="font-heading text-xl mb-1">Одобрение ипотеки за <span className="text-[#6abf74]">72 часа</span></p>
-              <p className="text-white/45 text-sm">5 банков-партнёров · Взнос от 10% · Помощь с подбором документов</p>
-            </div>
-            <button
-              onClick={() => openModal()}
-              className="flex-shrink-0 bg-[#4a9c52] hover:bg-[#3d8644] text-white font-semibold px-7 py-3.5 rounded-full transition-colors whitespace-nowrap">
-              Рассчитать ипотеку →
-            </button>
-          </div>
+
         </div>
       </section>
 
@@ -371,14 +352,11 @@ export default function Index() {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             <div className="aos" style={{ opacity: 0 }}>
-              <div className="grid grid-cols-2 gap-3 mb-6">
+              <div className="grid grid-cols-1 gap-3 mb-6">
                 {[
-                  { icon: "GraduationCap", n: "2", l: "школы рядом" },
-                  { icon: "Baby", n: "2", l: "детских сада" },
-                  { icon: "ShoppingCart", n: "8 мин", l: "до магазинов" },
-                  { icon: "TreePine", n: "100 м", l: "до леса" },
-                  { icon: "Car", n: "20 мин", l: "до центра" },
-                  { icon: "Dumbbell", n: "Спорт", l: "зал в районе" },
+                  { icon: "Trees", n: "0 минут", l: "до живой природы" },
+                  { icon: "Footprints", n: "15 минут пешком", l: "до Парка им. Кирова" },
+                  { icon: "Waves", n: "15 минут пешком", l: "до Ижевского пруда" },
                 ].map((item) => (
                   <div key={item.l} className="bg-[#0e1a0f] border border-[#4a9c52]/15 rounded-xl p-4 flex items-center gap-3">
                     <div className="w-9 h-9 bg-[#4a9c52]/15 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -399,7 +377,7 @@ export default function Index() {
             </div>
             <div className="aos rounded-2xl overflow-hidden h-80 border border-[#4a9c52]/20" style={{ opacity: 0 }}>
               <iframe
-                src="https://yandex.ru/map-widget/v1/?ll=53.230759%2C56.852678&z=14&l=map"
+                src="https://yandex.ru/map-widget/v1/?ll=53.1823%2C56.8717&z=15&l=map&pt=53.1823,56.8717,pm2gnm"
                 width="100%" height="100%" frameBorder="0" title="Карта"
                 className="w-full h-full grayscale opacity-80"
               />
@@ -408,101 +386,37 @@ export default function Index() {
         </div>
       </section>
 
-      {/* ── ФОРМА — правка 11 ── */}
-      <section id="form" className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0">
-          <img src={IMG_FOREST_VIEW} alt="" className="w-full h-full object-cover" />
-          <div className="absolute inset-0" style={{ background: "rgba(14,26,15,0.95)" }} />
-        </div>
-        <div className="relative container mx-auto px-6">
-          <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="aos" style={{ opacity: 0 }}>
-              <p className="text-[#6abf74] text-sm font-semibold tracking-widest uppercase mb-3">Бесплатно</p>
-              <h2 className="font-heading text-4xl md:text-5xl font-light mb-5">
-                Получите<br />
-                <em className="italic text-[#6abf74]">презентацию ЖК</em>
-              </h2>
-              <p className="text-white/50 text-sm mb-8 leading-relaxed">
-                Пришлём планировки, актуальные цены и условия ипотеки — без звонков, сразу в мессенджер
-              </p>
-              <div className="space-y-4">
-                {[
-                  { icon: "Phone", label: "Телефон", val: "+7 3412 970 505" },
-                  { icon: "MapPin", label: "Офис продаж", val: "Ижевск, ЖК «Дом природы»" },
-                  { icon: "Clock", label: "Режим работы", val: "Ежедневно 9:00–21:00" },
-                ].map((c) => (
-                  <div key={c.label} className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-[#4a9c52]/20 flex items-center justify-center flex-shrink-0">
-                      <Icon name={c.icon} size={15} className="text-[#6abf74]" />
-                    </div>
-                    <div>
-                      <p className="text-white/35 text-xs">{c.label}</p>
-                      <p className="text-white text-sm font-medium">{c.val}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="flex gap-3 mt-6">
-                {["WhatsApp", "Telegram", "ВКонтакте"].map((m) => (
-                  <a key={m} href="#"
-                    className="flex-1 text-center py-2.5 bg-white/5 hover:bg-[#4a9c52]/20 border border-white/10 hover:border-[#4a9c52]/40 text-white/60 hover:text-white text-xs font-medium rounded-xl transition-all">
-                    {m}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <div className="aos" style={{ opacity: 0 }}>
-              {sent ? (
-                <div className="text-center py-16">
-                  <div className="w-16 h-16 bg-[#4a9c52]/20 border border-[#4a9c52]/40 rounded-full flex items-center justify-center mx-auto mb-5">
-                    <Icon name="CheckCircle" size={28} className="text-[#6abf74]" />
-                  </div>
-                  <p className="font-heading text-2xl mb-2">Ждите звонка!</p>
-                  <p className="text-white/45 text-sm">Менеджер свяжется в течение 15 минут</p>
-                </div>
-              ) : (
-                <form
-                  onSubmit={(e) => { e.preventDefault(); setSent(true); }}
-                  className="bg-[#111c12]/80 backdrop-blur-md border border-[#4a9c52]/20 rounded-3xl p-8 space-y-4"
-                >
-                  <h3 className="font-heading text-2xl mb-0.5">Оставить заявку</h3>
-                  <p className="text-white/40 text-sm !mt-1 !mb-4">Ответим за 15 минут</p>
-                  <input type="text" placeholder="Ваше имя" value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })} required
-                    className="w-full bg-white/5 border border-white/10 focus:border-[#4a9c52]/60 outline-none rounded-xl px-4 py-3.5 text-white placeholder-white/30 text-sm transition-colors" />
-                  <input type="tel" placeholder="+7 (___) ___-__-__" value={form.phone}
-                    onChange={(e) => setForm({ ...form, phone: e.target.value })} required
-                    className="w-full bg-white/5 border border-white/10 focus:border-[#4a9c52]/60 outline-none rounded-xl px-4 py-3.5 text-white placeholder-white/30 text-sm transition-colors" />
-                  {/* правка 11: без студии, обновлённые цены */}
-                  <select className="w-full bg-[#0e1a0f] border border-white/10 rounded-xl px-4 py-3.5 text-white/50 text-sm focus:border-[#4a9c52]/60 outline-none">
-                    <option value="">Тип квартиры...</option>
-                    {plans.map((p) => (
-                      <option key={p.type} className="bg-[#111c12]">{p.type} — {p.price} ₽</option>
-                    ))}
-                  </select>
-                  <button type="submit"
-                    className="w-full bg-[#4a9c52] hover:bg-[#3d8644] text-white font-semibold py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-[#4a9c52]/30">
-                    Получить презентацию →
-                  </button>
-                  <p className="text-white/20 text-xs text-center">Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности</p>
-                </form>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* FOOTER */}
-      <footer className="bg-[#070f08] py-8 border-t border-white/5">
-        <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/25">
-          <div className="flex items-center gap-2">
+      <footer className="bg-[#070f08] pt-12 pb-8 border-t border-white/5">
+        <div className="container mx-auto px-6">
+          <div className="flex items-center gap-2 mb-6">
             <div className="w-5 h-5 rounded-full bg-[#4a9c52] flex items-center justify-center">
               <Icon name="Trees" size={10} className="text-white" />
             </div>
-            <span className="text-white/50">ЖК «Дом природы» · Ижевск · Дом широких горизонтов</span>
+            <span className="text-white/50 text-sm">ЖК «Дом природы» · Ижевск</span>
           </div>
-          <p>© 2025 ООО «СтройИнвест». Проектная декларация на сайте наш-жк.рф</p>
+
+          <div className="mb-6 text-white/30 text-xs leading-relaxed space-y-2">
+            <p>Застройщик ООО СЗ КВАРТАЛ, 426000 Удмуртская Республика, Город Ижевск, Улица Максима Горького дом 152 офис 2, ОГРН 1211800007847. Приведенные планировки не являются точной копией проектной документации. Проектная декларация размещена на сайте наш.дом.рф. Не оферта. Реклама.</p>
+            <p>Данный сайт носит исключительно информационный характер. Визуализации объектов, планировочные решения, фасады, элементы благоустройства, а также цены и условия покупки не являются публичной офертой (ст. 437 ГК РФ). Застройщик ООО СЗ КВАРТАЛ оставляет за собой право вносить изменения в проектную документацию в соответствии с действующим законодательством.</p>
+          </div>
+
+          <details className="mb-4 group">
+            <summary className="text-white/40 text-xs cursor-pointer hover:text-white/60 transition-colors select-none list-none flex items-center gap-2">
+              <Icon name="ChevronDown" size={14} className="group-open:rotate-180 transition-transform" />
+              Дисклеймеры
+            </summary>
+            <div className="mt-3 space-y-3 text-white/20 text-xs leading-relaxed">
+              <p>ЖК «Дом Природы». Застройщик: ООО «СЗ КВАРТАЛ». ОГРН 1211800007847. Предложение действует на квартиры № 2-5 и 6-7. Квартиры доступны в рассрочку без увеличения стоимости (при соблюдении условий рассрочки). Рассрочка предоставляется застройщиком без участия банка. Первоначальный взнос — от 10% стоимости квартиры. Срок рассрочки — до 1 года. Условия рассрочки, график платежей и иные существенные условия определяются договором участия в долевом строительстве. Изображения и планировки носят информационный характер и не являются точной копией проектной документации. Проектная декларация размещена на сайте наш.дом.рф. Количество квартир ограничено. Не является публичной офертой. Реклама.</p>
+              <p>ЖК «Дом Природы». Застройщик: ООО «СЗ КВАРТАЛ». ОГРН 1211800007847. Предложение действует на квартиры № 6-9 и 6-4. Квартиры доступны в рассрочку без увеличения стоимости (при соблюдении условий рассрочки). Рассрочка предоставляется застройщиком без участия банка. Первоначальный взнос — от 20% стоимости квартиры. Срок рассрочки — до 01.11.2027. Условия рассрочки, график платежей и иные существенные условия определяются договором участия в долевом строительстве. Изображения и планировки носят информационный характер и не являются точной копией проектной документации. Проектная декларация размещена на сайте наш.дом.рф. Количество квартир ограничено. Не является публичной офертой. Реклама.</p>
+              <p>ЖК «Дом Природы». Застройщик: ООО «СЗ «Квартал». ОГРН 1211800007847. Предложение действует на квартиры планировки 3А на 6 и 7 этажах. Ставка от 5% годовых на весь срок кредитования по программам «Семейная ипотека» и «ИТ-ипотека» (при соблюдении условий программ). Банковские услуги оказывает ПАО «Сбербанк». Ставка может быть снижена за счет субсидирования застройщиком. Полная стоимость кредита (займа): от 2,631% до 13,364% годовых. Первоначальный взнос — от 30,1%. Сумма кредита — в соответствии с условиями программы. Срок кредита — до 30 лет. Подробности на сайте банка: https://www.sberbank.ru/ru/person/credits/home/family. Предложение действует при бронировании квартиры до 30.04.2026 и оформлении сделки в течение 7 дней с даты бронирования. Проектная декларация размещена на сайте наш.дом.рф. Количество квартир ограничено. Не является публичной офертой. Реклама.</p>
+              <p>ЖК «Дом Природы». Застройщик: ООО «СЗ «Квартал». ОГРН 1211800007847. Все свободные квартиры с процентной ставкой 6% годовых на весь срок кредитования по программам «Семейная ипотека» и «ИТ-ипотека». Банковские услуги оказывает ПАО «Сбербанк». Ставка обеспечивается за счет субсидирования из средств застройщика. Диапазон процентных ставок: от 6,301% до 23,612% годовых. Первоначальный взнос — от 30,1%. Сумма кредита — до 6 000 000 рублей. Срок кредита — до 30 лет. ИЗУЧИТЕ ВСЕ УСЛОВИЯ КРЕДИТА (ЗАЙМА) на официальном сайте ПАО «Сбербанк» https://www.sberbank.ru/ru/person/credits/home/family. Проектная декларация размещена на сайте наш.дом.рф. Количество квартир ограничено. Не является публичной офертой. Реклама.</p>
+            </div>
+          </details>
+
+          <div className="border-t border-white/5 pt-4 text-white/20 text-xs">
+            <p>© 2025 ООО СЗ КВАРТАЛ. ОГРН 1211800007847</p>
+          </div>
         </div>
       </footer>
     </div>
