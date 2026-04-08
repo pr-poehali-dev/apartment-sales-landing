@@ -372,12 +372,13 @@ export default function Index() {
               <div className="bg-[#0e1a0f] border border-[#4a9c52]/20 rounded-xl p-5">
                 <p className="text-[#6abf74] text-xs font-semibold uppercase tracking-wide mb-1">Офис продаж</p>
                 <p className="font-heading text-lg mb-0.5">Ижевск, Дом природы</p>
-                <p className="text-white/40 text-sm">Ежедневно 9:00–21:00 · +7 3412 970 505</p>
+                <p className="text-white/40 text-sm">Пн–Пт: 9:00–19:00 · Сб: 10:00–16:00 · Вс: выходной</p>
+                <p className="text-white/40 text-sm">+7 3412 970 505</p>
               </div>
             </div>
             <div className="aos rounded-2xl overflow-hidden border border-[#4a9c52]/20" style={{ opacity: 0, height: "320px" }}>
               <iframe
-                src="https://yandex.ru/map-widget/v1/?ll=53.1772%2C56.8797&z=16&l=map&pt=53.1772,56.8797,pm2rdl"
+                src="https://yandex.ru/map-widget/v1/?ll=53.1795%2C56.8775&z=16&l=map&pt=53.1795,56.8775,pm2rdl"
                 width="100%" height="100%" frameBorder="0" title="Карта"
                 className="w-full h-full grayscale opacity-80"
               />
